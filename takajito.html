@@ -5,7 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Takajito Casino 🎰</title>
 <style>
-body{font-family:Arial,sans-serif;text-align:center;background:#222;color:#fff}
+body{font-family:Arial,sans-serif;text-align:center;background:#222;color:#fff;margin:0;padding:0}
 button,input,select{padding:8px;margin:5px;font-size:14px}
 .slot,#card{font-size:50px;margin:20px}
 .wallet{font-size:18px;margin-top:20px}
@@ -63,18 +63,8 @@ header{font-size:32px;font-weight:bold;margin-bottom:20px}
 <script>
 let coins=1000,currentUser='',referral='',lbData=[],hist=[];
 const emojis=['🍒','🍋','🍊','🍉','🍇','⭐'],cards=['🂡','🂢','🂣','🂤','🂥','🂦','🂧','🂨','🂩','🂪','🂫','🂭','🂮'];
-function login(){
-currentUser=document.getElementById('username').value.trim();
-referral=document.getElementById('referral').value.trim();
-if(!currentUser){alert('Enter username!');return;}
-if(referral){coins+=50;document.getElementById('refInfo').innerText='50 bonus coins for referral!';}
-document.getElementById('loginForm').style.display='none';
-document.getElementById('casino').style.display='block';
-document.getElementById('coins').innerText=coins;
-document.getElementById('adminUser').innerText=currentUser;
-document.getElementById('adminCoins').innerText=coins;
-updateLB();
-}
+function login(){currentUser=document.getElementById('username').value.trim();referral=document.getElementById('referral').value.trim();if(!currentUser){alert('Enter username!');return;}if(referral){coins+=50;document.getElementById('refInfo').innerText='50 bonus coins for referral!';}
+document.getElementById('loginForm').style.display='none';document.getElementById('casino').style.display='block';document.getElementById('coins').innerText=coins;document.getElementById('adminUser').innerText=currentUser;document.getElementById('adminCoins').innerText=coins;updateLB();}
 function logout(){coins=1000;currentUser='';referral='';document.getElementById('loginForm').style.display='block';document.getElementById('casino').style.display='none';document.getElementById('username').value='';document.getElementById('referral').value='';document.getElementById('refInfo').innerText='';}
 function spin(){if(coins<=0){alert('No coins!');return;}coins-=10;let s=[emojis[Math.floor(Math.random()*emojis.length)],emojis[Math.floor(Math.random()*emojis.length)],emojis[Math.floor(Math.random()*emojis.length)]];['slot1','slot2','slot3'].forEach((id,i)=>document.getElementById(id).innerText=s[i]);let res='Slots: '+s.join(' ');if(s[0]===s[1]&&s[1]===s[2]){coins+=100;res+=' -> Jackpot! +100';}hist.push(res);updateUI();}
 function flip(){if(coins<=0){alert('No coins!');return;}coins-=5;let c=cards[Math.floor(Math.random()*cards.length)];document.getElementById('card').innerText=c;let res='Card: '+c;if(c==='🂡'){coins+=50;res+=' -> Ace! +50';}hist.push(res);updateUI();}
